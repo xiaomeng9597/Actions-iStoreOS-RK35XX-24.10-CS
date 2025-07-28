@@ -8,7 +8,8 @@
 #===============================================
 
 # 修改版本为编译日期，数字类型。
-date_version=$(date +"%Y%m%d%H")
+#date_version=$(date +"%Y%m%d%H")
+date_version="2025072812"
 echo $date_version > version
 
 # 修复系统kernel内核md5校验码不正确的问题
