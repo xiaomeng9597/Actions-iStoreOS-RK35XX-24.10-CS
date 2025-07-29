@@ -90,15 +90,15 @@ jobs:
     - name: 设置工作目录和权限
       run: |
         OPENWRT_PATH=$PWD
-        sudo mkdir -p $OPENWRT_PATH/workdir
-        sudo chown $USER:$GROUPS $OPENWRT_PATH/workdir
+        sudo mkdir -p ${OPENWRT_PATH}/workdir
+        sudo chown $USER:$GROUPS ${OPENWRT_PATH}/workdir
 
     - name: 克隆源码
-      working-directory: $OPENWRT_PATH/workdir
+      working-directory: ${OPENWRT_PATH}/workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b ${{ matrix.REPO_BRANCH }} openwrt
-        ln -sf $OPENWRT_PATH/workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf ${OPENWRT_PATH}/workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: 缓存构建动作
       uses: klever1988/cachewrtbuild@main
