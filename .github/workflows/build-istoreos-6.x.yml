@@ -80,7 +80,8 @@ jobs:
         echo "------------------------------- 设置工作目录及时区 -------------------------------"
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /build
-        sudo chown $USER:$GROUPS /build
+        sudo chown -R runner:runner /build
+        sudo chmod -R 755 /build
         sudo mkdir -p /build/workspace
 
     - name: 备份工作目录数据
