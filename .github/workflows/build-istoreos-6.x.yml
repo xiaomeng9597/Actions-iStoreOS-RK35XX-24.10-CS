@@ -87,7 +87,7 @@ jobs:
     - name: 备份工作目录数据
       run: |
         cp -a $GITHUB_WORKSPACE/. /mnt/userfile/
-        echo "GITHUB_WORKSPACE=/mnt/userfile" >> $GITHUB_ENV
+        # echo "GITHUB_WORKSPACE=/mnt/userfile" >> $GITHUB_ENV
 
     - name: 合并磁盘
       uses: easimon/maximize-build-space@master
@@ -100,6 +100,7 @@ jobs:
       working-directory: /mnt/workdir
       run: |
         df -hT $PWD
+        cp -a /mnt/userfile/. $GITHUB_WORKSPACE/
         ls $GITHUB_WORKSPACE
         git clone $REPO_URL -b ${{ matrix.REPO_BRANCH }} openwrt
         ln -sf /mnt/workdir/openwrt $GITHUB_WORKSPACE/openwrt
