@@ -81,6 +81,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
+        ls $GITHUB_WORKSPACE
 
     - name: 合并磁盘
       uses: easimon/maximize-build-space@master
