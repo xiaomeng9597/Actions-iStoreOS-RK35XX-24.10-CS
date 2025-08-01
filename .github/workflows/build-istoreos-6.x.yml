@@ -59,7 +59,7 @@ jobs:
       uses: actions/checkout@main
 
     - name: 克隆源码
-      working-directory: /workdir
+      working-directory: $WORKDIR/workdir
       run: |
         df -hT $PWD
         echo "当前路径"$PWD
