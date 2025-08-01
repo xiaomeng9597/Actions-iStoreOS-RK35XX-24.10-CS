@@ -53,8 +53,8 @@ jobs:
 
     - name: 创建工作目录
       run: |
-        mkdir -p ${GITHUB_WORKSPACE}/workdir
-        chmod 755 ${GITHUB_WORKSPACE}/workdir
+        mkdir -p ${{ env.WORKDIR }}/workdir
+        chmod 755 ${{ env.WORKDIR }}/workdir
         ls $GITHUB_WORKSPACE
         echo "WORKDIR=$PWD" >> $GITHUB_ENV
 
