@@ -86,19 +86,19 @@ jobs:
 
     - name: 创建工作目录
       run: |
-        mkdir -p ${GITHUB_WORKSPACE}/workdir
-        chown runner:runner ${GITHUB_WORKSPACE}/workdir
+        mkdir -p $GITHUB_WORKSPACE/workdir
+        chown runner:runner $GITHUB_WORKSPACE/workdir
 
      - name: 准备完成
       uses: actions/checkout@main
 
     - name: 克隆源码
-      working-directory: ${GITHUB_WORKSPACE}/workdir
+      working-directory: $GITHUB_WORKSPACE/workdir
       run: |
         df -hT $PWD
         ls $GITHUB_WORKSPACE
         git clone $REPO_URL -b ${{ matrix.REPO_BRANCH }} openwrt
-        ln -sf ${GITHUB_WORKSPACE}/workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf $GITHUB_WORKSPACE/workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: 缓存构建动作
       uses: klever1988/cachewrtbuild@main
