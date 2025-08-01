@@ -86,14 +86,14 @@ jobs:
 
     - name: 创建工作目录
       run: |
-        mkdir -p /workdir
-        chmod 755 /workdir
+        mkdir -p ${GITHUB_WORKSPACE}/workdir
+        chmod 755 ${GITHUB_WORKSPACE}/workdir
 
     - name: 准备完成
       uses: actions/checkout@main
 
     - name: 克隆源码
-      working-directory: /workdir
+      working-directory: ${GITHUB_WORKSPACE}/workdir
       run: |
         df -hT $PWD
         echo "当前路径"$PWD
