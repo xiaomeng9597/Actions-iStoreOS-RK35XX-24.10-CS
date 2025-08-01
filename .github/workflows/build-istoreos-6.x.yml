@@ -84,7 +84,6 @@ jobs:
         sudo mkdir -p /build/workspace
 
     - name: 备份工作目录数据
-      working-directory: /build/workspace
       run: |
         cp -a $GITHUB_WORKSPACE/. /build/workspace/
         echo "GITHUB_WORKSPACE=/build/workspace" >> $GITHUB_ENV
