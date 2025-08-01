@@ -93,7 +93,7 @@ jobs:
       uses: actions/checkout@main
 
     - name: 克隆源码
-      working-directory: ${GITHUB_WORKSPACE}/workdir
+      working-directory: /workdir
       run: |
         df -hT $PWD
         echo "当前路径"$PWD
