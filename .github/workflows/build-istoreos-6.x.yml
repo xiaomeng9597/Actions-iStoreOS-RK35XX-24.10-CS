@@ -53,13 +53,21 @@ jobs:
         mkdir -p ${GITHUB_WORKSPACE}/workdir
         chmod 755 ${GITHUB_WORKSPACE}/workdir
         ls $GITHUB_WORKSPACE
+        echo "WORKDIR=$PWD" >> $GITHUB_ENV
 
     - name: 准备完成
       uses: actions/checkout@main
 
     - name: 克隆源码
-      working-directory: $GITHUB_WORKSPACE/workdir
+      working-directory: /workdir
       run: |
         df -hT $PWD
         echo "当前路径"$PWD
+        echo "当前路径2"$WORKDIR
         ls $GITHUB_WORKSPACE
+
+
+      WORKDIR="${GITHUB_WORKSPACE}/workdir"
+      mkdir -p "${WORKDIR}"
+      echo "WORKDIR=${WORKDIR}" >> $GITHUB_ENV
+      ls -la "${WORKDIR}"
