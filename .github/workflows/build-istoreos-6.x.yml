@@ -79,9 +79,15 @@ jobs:
         sudo -E apt-get -qq clean
         echo "------------------------------- 设置工作目录及时区 -------------------------------"
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
-        ls $GITHUB_WORKSPACE
+        sudo mkdir -p /build
+        sudo chown $USER:$GROUPS /build
+
+    - name: 备份工作目录数据
+      working-directory: /build/workspace
+      run: |
+        mkdir -p /build/workspace
+        cp -a $GITHUB_WORKSPACE/. /build/workspace/
+        echo "GITHUB_WORKSPACE=/build/workspace" >> $GITHUB_ENV
 
     - name: 合并磁盘
       uses: easimon/maximize-build-space@master
@@ -91,12 +97,12 @@ jobs:
         root-reserve-mb: 1024
  
     - name: 克隆源码
-      working-directory: /workdir
+      working-directory: /build
       run: |
         df -hT $PWD
         ls $GITHUB_WORKSPACE
         git clone $REPO_URL -b ${{ matrix.REPO_BRANCH }} openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /build/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: 缓存构建动作
       uses: klever1988/cachewrtbuild@main
