@@ -53,9 +53,8 @@ jobs:
 
     - name: 创建工作目录
       run: |
-        mkdir -p ${{ env.WORKDIR }}/workdir
-        chmod 755 ${{ env.WORKDIR }}/workdir
-        ls $GITHUB_WORKSPACE
+        mkdir -p ${GITHUB_WORKSPACE}/workdir
+        chmod 755 ${GITHUB_WORKSPACE}/workdir
         echo "WORKDIR=$PWD" >> $GITHUB_ENV
 
     - name: 克隆源码
@@ -64,4 +63,5 @@ jobs:
         df -hT $PWD
         echo "当前路径"$PWD
         echo "当前路径2"$WORKDIR
+        echo "当前路径3"${{ env.WORKDIR }}/workdir
         ls $GITHUB_WORKSPACE
