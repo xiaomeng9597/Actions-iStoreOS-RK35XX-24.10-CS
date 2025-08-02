@@ -41,9 +41,6 @@ jobs:
       fail-fast: false
 
     steps:
-    - name: 准备完成
-      uses: actions/checkout@main
-
     - name: 检查服务器配置
       run: |
         echo "若分配的服务器性能不足，务必及时取消，重新运行！"
@@ -86,19 +83,22 @@ jobs:
         swap-size-mb: 1024
         temp-reserve-mb: 100
         root-reserve-mb: 1024
-        
-    - name: 设置工作目录和权限
+
+    - name: 准备完成
+      uses: actions/checkout@main
+
+    - name: 创建工作目录
       run: |
-        OPENWRT_PATH=$PWD
-        sudo mkdir -p $OPENWRT_PATH/workdir
-        sudo chown $USER:$GROUPS $OPENWRT_PATH/workdir
+        mkdir -p ${GITHUB_WORKSPACE}/workdir
+        chmod 755 ${GITHUB_WORKSPACE}/workdir
+        echo "WORKDIR=$PWD" >> $GITHUB_ENV
 
     - name: 克隆源码
-      working-directory: $OPENWRT_PATH/workdir
+      working-directory: ${{ env.WORKDIR }}/workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b ${{ matrix.REPO_BRANCH }} openwrt
-        ln -sf $OPENWRT_PATH/workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf ${{ env.WORKDIR }}/workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: 缓存构建动作
       uses: klever1988/cachewrtbuild@main
