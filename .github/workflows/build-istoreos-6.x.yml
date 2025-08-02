@@ -48,14 +48,14 @@ jobs:
         temp-reserve-mb: 100
         root-reserve-mb: 1024
 
+    - name: 准备完成
+      uses: actions/checkout@main
+
     - name: 创建工作目录
       run: |
         mkdir -p ${GITHUB_WORKSPACE}/workdir
         chmod 755 ${GITHUB_WORKSPACE}/workdir
         echo "WORKDIR=$PWD" >> $GITHUB_ENV
-
-    - name: 准备完成
-      uses: actions/checkout@main
 
     - name: 克隆源码
       working-directory: ${{ env.WORKDIR }}/workdir
