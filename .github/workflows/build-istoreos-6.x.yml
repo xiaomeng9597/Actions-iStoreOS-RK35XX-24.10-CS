@@ -41,6 +41,22 @@ jobs:
       fail-fast: false
 
     steps:
+    - name: 合并磁盘
+      uses: easimon/maximize-build-space@master
+      with:
+        swap-size-mb: 1024
+        temp-reserve-mb: 100
+        root-reserve-mb: 1024
+
+    - name: 准备完成
+      uses: actions/checkout@main
+
+    - name: 创建工作目录
+      run: |
+        mkdir -p ${GITHUB_WORKSPACE}/workdir
+        chmod 755 ${GITHUB_WORKSPACE}/workdir
+        echo "WORKDIR=$PWD" >> $GITHUB_ENV
+
     - name: 检查服务器配置
       run: |
         echo "若分配的服务器性能不足，务必及时取消，重新运行！"
@@ -76,22 +92,6 @@ jobs:
         sudo -E apt-get -qq clean
         echo "------------------------------- 设置时区 -------------------------------"
         sudo timedatectl set-timezone "$TZ"
-
-    - name: 合并磁盘
-      uses: easimon/maximize-build-space@master
-      with:
-        swap-size-mb: 1024
-        temp-reserve-mb: 100
-        root-reserve-mb: 1024
-
-    - name: 准备完成
-      uses: actions/checkout@main
-
-    - name: 创建工作目录
-      run: |
-        mkdir -p ${GITHUB_WORKSPACE}/workdir
-        chmod 755 ${GITHUB_WORKSPACE}/workdir
-        echo "WORKDIR=$PWD" >> $GITHUB_ENV
 
     - name: 克隆源码
       working-directory: ${{ env.WORKDIR }}/workdir
